@@ -10,6 +10,7 @@ const PORT = 8080;
 
 // Router Imports
 const indexRouter = require('./routes/index');
+const urlsRouter = require('./routes/urls');
 
 // Creates an express application
 const app = express();
@@ -29,6 +30,7 @@ app.use(compression());
 
 // Use Router
 app.use('/', indexRouter);
+app.use('/urls', urlsRouter);
 
 
 // catch 404 and forward to error handler

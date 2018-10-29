@@ -1,4 +1,9 @@
+const db = require('../server/urlDB');
 // Hello
 exports.render_homepage = (req, res) => {
-  res.send('Hello World');
+  res.render('index');
+};
+
+exports.render_JSON = (req, res) => {
+  res.send(db);
 };
