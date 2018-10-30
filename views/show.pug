@@ -1,0 +1,13 @@
+include ./partials/head
+    include ./partials/header
+    p=`ShortURL: ${val}`
+    form(action=`/urls/${val}/update` method="post" style="margin:150px;")
+      label(for="longURL") Enter a URL:
+      input(
+        id="longURL"
+        type="text"
+        name="longURL"
+        placeholder=long
+        style="width:300px"
+        )
+      input(type="submit" value="Submit")

@@ -3,7 +3,7 @@ module.exports = funcObj = {
     let out = ``;
     Object.keys(db).forEach((element) => {
       if (element === key) {
-        out = `${key} | ${db[key]}`
+        out = db[key];
       }
     });
     return out;

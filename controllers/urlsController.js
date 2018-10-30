@@ -1,6 +1,5 @@
 const db = require('../server/urlDB');
 const helpers = require('../helpers/functions');
-const findKeyVal = helpers.returnKeyVal;
 const genRang = helpers.rng;
 // Hello
 exports.render_urls = (req, res) => {
@@ -9,7 +8,8 @@ exports.render_urls = (req, res) => {
 };
 
 exports.render_id = (req, res) => {
-  res.send(findKeyVal(db, req.params.id));
+  val = req.params.id;
+  res.render('show', {short: val, long: db[val]});
 };
 
 exports.render_new = (req, res) => {
@@ -25,5 +25,15 @@ exports.post_new = (req, res) => {
 
 exports.post_delete = (req, res) => {
   delete db[req.params.id];
+  res.redirect('/urls');
+};
+
+exports.post_update = (req, res) => {
+  shortUrl = req.params.id
+  console.log(shortUrl)
+  longUrl = req.body.longURL
+  console.log(longUrl)
+  db[shortUrl] = longUrl
+  console.log(db)
   res.redirect('/urls');
 };
