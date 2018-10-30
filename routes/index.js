@@ -11,11 +11,11 @@ router.get('/u/:shortURL', indexController.render_id);
 
 router.get('/login', indexController.render_login);
 
-router.post('/login', indexController.post_login);
+router.post('/login', indexController.post_login)
 
 router.get('/register', indexController.render_register);
 
-router.post('/logout', indexController.post_logout);
+router.post('/logout', indexController.post_logout)
 
 
 module.exports = router;

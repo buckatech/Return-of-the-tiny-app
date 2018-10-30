@@ -1,0 +1,12 @@
+include ./partials/head
+    include ./partials/header
+    form(action="/login" method="post" style="margin:150px;")
+      label(for="userName") Enter a username:
+      input(
+        id="userName"
+        type="text"
+        name="userName"
+        placeholder="Username"
+        style="width:300px"
+        )
+      input(type="submit" value="Submit")

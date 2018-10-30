@@ -3,8 +3,7 @@ const helpers = require('../helpers/functions');
 const genRang = helpers.rng;
 // Hello
 exports.render_urls = (req, res) => {
-  console.log(db)
-  res.render('urls', {db: db});
+  res.render('urls', {db: db, cookie: req.cookies['userID']});
 };
 
 exports.render_id = (req, res) => {
@@ -29,11 +28,8 @@ exports.post_delete = (req, res) => {
 };
 
 exports.post_update = (req, res) => {
-  shortUrl = req.params.id
-  console.log(shortUrl)
-  longUrl = req.body.longURL
-  console.log(longUrl)
-  db[shortUrl] = longUrl
-  console.log(db)
+  shortUrl = req.params.id;
+  longUrl = req.body.longURL;
+  db[shortUrl] = longUrl;
   res.redirect('/urls');
 };
