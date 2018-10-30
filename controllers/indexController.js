@@ -13,3 +13,7 @@ exports.render_id = (req, res) => {
   shortURL = req.params.shortURL;
   res.redirect(db[shortURL]);
 };
+
+exports.render_register = (req, res) => {
+  res.render('register');
+}
