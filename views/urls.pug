@@ -4,6 +4,8 @@ include ./partials/head
       each val, key in db
         form(method="POST" action=`/urls/${key}/delete`)
           input(type="submit" name="delete" value="Delete")
+        a(href=`/urls/${key}`)
+          button Update 
         li=key + ' ' + ' ' + val
         
     

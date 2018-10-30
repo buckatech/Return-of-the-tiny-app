@@ -11,8 +11,8 @@ router.get('/:id', urlsController.render_id);
 
 router.post('/', urlsController.post_new);
 
-router.post('/:id/update', urlsController.post_update)
+router.post('/:id/update', urlsController.post_update);
 
-router.post('/:id/delete', urlsController.post_delete)
+router.post('/:id/delete', urlsController.post_delete);
 
 module.exports = router;
