@@ -9,6 +9,8 @@ router.get('/new', urlsController.render_new);
 
 router.get('/:id', urlsController.render_id);
 
-router.post('/', urlsController.post_new)
+router.post('/', urlsController.post_new);
+
+router.post('/:id/delete', urlsController.post_delete)
 
 module.exports = router;

@@ -1,3 +1,9 @@
 include ./partials/head
-  include ./partials/header
+    include ./partials/header
+    ul
+      each val, key in db
+        form(method="POST" action=`/urls/${key}/delete`)
+          input(type="submit" name="delete" value="Delete")
+        li=key + ' ' + ' ' + val
+        
     
