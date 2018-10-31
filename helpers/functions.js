@@ -9,22 +9,29 @@ module.exports = funcObj = {
       return 'red';
     }
   },
+  objIsEmpty(obj) {
+    if (obj) {
+      return 'goodCookie';
+    } else {
+      return 'redirect';
+    }
+  },
   checkExist(users, input) {
     let bool;
-    Object.values(users).forEach(element => {
+    Object.values(users).forEach((element) => {
       if (element.email === input) {
-        bool = true
+        bool = true;
       }
     });
-    return bool
+    return bool;
   },
   checkLogin(users, input) {
     let out;
-    Object.values(users).forEach(element => {
+    Object.values(users).forEach((element) => {
       if (element.password === input.password && element.email === input.email) {
-        out = element.id
+        out = element.id;
       }
     });
     return out;
-  }
+  },
 };

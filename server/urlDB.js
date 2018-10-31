@@ -1,4 +1,3 @@
 module.exports = urlDatabase = {
-  'b2xVn2': 'http://www.lighthouselabs.ca',
-  '9sm5xK': 'http://www.google.com',
+  'b2xVn2': {longURL: 'https://youtube.com', shortURL: 'b2V2n'},
 };
