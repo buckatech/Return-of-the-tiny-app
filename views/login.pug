@@ -1,12 +1,20 @@
 include ./partials/head
     include ./partials/header
     form(action="/login" method="post" style="margin:150px;")
-      label(for="userName") Enter a username:
+      label(for="Email") username:
       input(
-        id="userName"
+        id="email"
         type="text"
-        name="userName"
-        placeholder="Username"
+        name="email"
+        placeholder="email"
+        style="width:300px"
+        )
+      label(for="Password") password:
+      input(
+        id="password"
+        type="text"
+        name="password"
+        placeholder="password"
         style="width:300px"
         )
       input(type="submit" value="Submit")

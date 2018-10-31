@@ -3,3 +3,9 @@ a(href="/urls") urls
 a(href="/")  | home 
 a(href="/urls/new")  | new 
 a(href="/register")  | register 
+if cookie
+  p=cookie
+  form(method="POST" action=`/logout`)
+    input(type="submit" name="logOut" value="Logout")
+else 
+  a(href="login") | Login

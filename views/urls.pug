@@ -1,6 +1,5 @@
 include ./partials/head
     include ./partials/header
-    include ./partials/cookie
     ul
       each val, key in db
         form(method="POST" action=`/urls/${key}/delete`)

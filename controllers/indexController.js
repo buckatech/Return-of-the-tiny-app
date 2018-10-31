@@ -4,10 +4,11 @@ const helpers = require('../helpers/functions');
 const genRang = helpers.rng;
 const checkExist = helpers.checkExist;
 const isEmpty = helpers.isEmpty;
+const checkLogin = helpers.checkLogin
 
 // Hello
 exports.render_homepage = (req, res) => {
-  res.render('index');
+  res.render('index', {cookie: req.cookies['userID']});
 };
 
 exports.render_JSON = (req, res) => {
@@ -20,7 +21,7 @@ exports.render_id = (req, res) => {
 };
 
 exports.render_register = (req, res) => {
-  res.render('register');
+  res.render('register', {cookie: req.cookies['userID']});
 };
 /* TODO better 400 handling */
 exports.post_register = (req, res) => {
@@ -39,12 +40,16 @@ exports.post_register = (req, res) => {
 };
 
 exports.render_login = (req, res) => {
-  res.render('login');
+  res.render('login', {cookie: req.cookies['userID']});
 };
-
+/* TODO better 400 handling */
 exports.post_login = (req, res) => {
-  res.cookie('userID', req.body.userName);
-  res.redirect('/urls');
+  if (checkLogin(users, req.body) === undefined) {
+    res.send('400');
+  } else {
+    res.cookie('userID', checkLogin(users, req.body));
+    res.redirect('/urls');
+  }
 };
 
 exports.post_logout = (req, res) => {

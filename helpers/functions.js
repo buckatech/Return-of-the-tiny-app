@@ -9,13 +9,22 @@ module.exports = funcObj = {
       return 'red';
     }
   },
-  checkExist(users, inputEmail) {
+  checkExist(users, input) {
     let bool;
     Object.values(users).forEach(element => {
-      if (element.email === inputEmail) {
+      if (element.email === input) {
         bool = true
       }
     });
     return bool
   },
+  checkLogin(users, input) {
+    let out;
+    Object.values(users).forEach(element => {
+      if (element.password === input.password && element.email === input.email) {
+        out = element.id
+      }
+    });
+    return out;
+  }
 };

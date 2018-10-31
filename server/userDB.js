@@ -9,4 +9,9 @@ module.exports = users = {
     email: 'user2@example.com',
     password: 'dishwasher-funk',
   },
+  'asdf': {
+    id: 'asdf',
+    email: 'asdf@asdf.com',
+    password: 'asdf',
+  },
 };

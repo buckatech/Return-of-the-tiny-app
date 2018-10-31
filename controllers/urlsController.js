@@ -8,11 +8,11 @@ exports.render_urls = (req, res) => {
 
 exports.render_id = (req, res) => {
   val = req.params.id;
-  res.render('show', {short: val, long: db[val]});
+  res.render('show', {short: val, long: db[val], cookie: req.cookies['userID']});
 };
 
 exports.render_new = (req, res) => {
-  res.render('new');
+  res.render('new', {cookie: req.cookies['userID']});
 };
 
 exports.post_new = (req, res) => {
