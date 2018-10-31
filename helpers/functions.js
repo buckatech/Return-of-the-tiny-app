@@ -34,4 +34,13 @@ module.exports = funcObj = {
     });
     return out;
   },
+  outDB(db, key) {
+    let outObj = {};
+    Object.keys(db).forEach((element) => {
+      if (element === key) {
+        outObj = db[element];
+      }
+    });
+    return outObj;
+  },
 };
