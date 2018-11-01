@@ -4,7 +4,8 @@ const helpers = require('../helpers/functions');
 const genRang = helpers.rng;
 const checkExist = helpers.checkExist;
 const isEmpty = helpers.isEmpty;
-const checkLogin = helpers.checkLogin
+const checkLogin = helpers.checkLogin;
+const bcrypt = require('bcrypt');
 
 // Hello
 exports.render_homepage = (req, res) => {
@@ -28,13 +29,14 @@ exports.post_register = (req, res) => {
   rng = genRang();
   email = req.body.email;
   pass = req.body.password;
-  res.cookie('userID', rng);
+  req.session.userID = rng;
   if (isEmpty(email, pass) === 'red') {
     res.send('400');
   } else if (checkExist(users, email)) {
     res.send('400');
   } else {
-    users[rng] = req.body;
+    users[rng] = {id: rng, email: email, password: bcrypt.hashSync(pass, 10)};
+    console.log(users)
     res.redirect('/urls');
   }
 };
@@ -47,7 +49,7 @@ exports.post_login = (req, res) => {
   if (checkLogin(users, req.body) === undefined) {
     res.send('400');
   } else {
-    res.cookie('userID', checkLogin(users, req.body));
+    req.session.userID(checkLogin(users, req.body));
     res.redirect('/urls');
   }
 };
