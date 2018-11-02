@@ -1,15 +1,23 @@
+const bcrypt = require('bcrypt');
+
 const db = require('../server/urlDB');
 const users = require('../server/userDB');
 const helpers = require('../helpers/functions');
+
+
 const genRang = helpers.rng;
 const checkExist = helpers.checkExist;
 const isEmpty = helpers.isEmpty;
 const checkLogin = helpers.checkLogin;
-const bcrypt = require('bcrypt');
+
 
 // Hello
 exports.render_homepage = (req, res) => {
-  res.render('index', {cookie: req.cookies['userID']});
+  if (this.testVar) {
+    res.render('index', {cookie: cookie});
+  } else {
+  res.render('index', {cookie: session});
+  }
 };
 
 exports.render_JSON = (req, res) => {
@@ -22,13 +30,13 @@ exports.render_id = (req, res) => {
 };
 
 exports.render_register = (req, res) => {
-  res.render('register', {cookie: req.cookies['userID']});
+  res.render('register', {cookie: req.session.userID});
 };
 /* TODO better 400 handling */
 exports.post_register = (req, res) => {
-  rng = genRang();
-  email = req.body.email;
-  pass = req.body.password;
+  const rng = genRang();
+  const email = req.body.email;
+  const pass = req.body.password;
   req.session.userID = rng;
   if (isEmpty(email, pass) === 'red') {
     res.send('400');
@@ -42,20 +50,20 @@ exports.post_register = (req, res) => {
 };
 
 exports.render_login = (req, res) => {
-  res.render('login', {cookie: req.cookies['userID']});
+  res.render('login', {cookie: req.session.userID});
 };
 /* TODO better 400 handling */
 exports.post_login = (req, res) => {
   if (checkLogin(users, req.body) === undefined) {
     res.send('400');
   } else {
-    req.session.userID(checkLogin(users, req.body));
+    req.session.userID = checkLogin(users, req.body);
     res.redirect('/urls');
   }
 };
 
 exports.post_logout = (req, res) => {
-  res.clearCookie('userID');
+  req.session = null;
   res.redirect('/urls');
 };
 

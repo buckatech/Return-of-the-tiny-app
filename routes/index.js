@@ -3,6 +3,12 @@ const router = express.Router();
 const indexController = require('../controllers/indexController');
 
 /* GET home page. */
+router.use(function(req,res,next){
+  global.cookie = 'cookie';   // hostname = 'localhost:8080'
+  global.session = req.session.userID;
+  next();
+});
+
 router.get('/', indexController.render_homepage);
 
 router.get('/json', indexController.render_JSON);

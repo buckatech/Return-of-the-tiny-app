@@ -1,8 +1,9 @@
 const bcrypt = require('bcrypt');
-module.exports = funcObj = {
+module.exports = {
   rng() {
-    return Math.random().toString(36).slice(7);
+    return Math.random().toString(36).substr(2, 6);
   },
+  // look at pulling else on if statements
   isEmpty(email, pass) {
     if (email.replace(/\s/g, '').length && pass.replace(/\s/g, '').length) {
       return 'green';
@@ -31,7 +32,7 @@ module.exports = funcObj = {
     Object.values(users).forEach((element) => {
       if (bcrypt.compareSync(input.password, element.password) && element.email === input.email) {
         out = element.id;
-        console.log(out)
+        console.log(out);
       }
     });
     return out;

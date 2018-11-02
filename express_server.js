@@ -3,7 +3,8 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const compression = require('compression');
-const cookieSession = require('cookie-session')
+const cookieSession = require('cookie-session');
+
 
 // Set port 8080
 const PORT = 8080;
@@ -25,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieSession({
   name: 'session',
-  keys: [/* secret keys */],
+  keys: ['key1', 'key2'],
 
   // Cookie Options
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
@@ -43,3 +44,5 @@ app.use('/urls', urlsRouter);
 app.listen(PORT, () => {
   console.log(`App spining up on port ${PORT}!`);
 });
+
+module.exports = app;
