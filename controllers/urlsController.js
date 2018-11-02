@@ -9,10 +9,12 @@ const outDB = helpers.outDB
 // Hello
 //Add no urls prompt
 exports.render_urls = (req, res) => {
-  if (db[req.session.userID]) {
+  if (this.testVar) {
+    res.render('urls', {db: db[cookie], cookie: cookie})
+  } else if (req.session.userID) {
   res.render('urls', {db: db[req.session.userID], cookie: req.session.userID});
   } else {
-    res.redirect('/login')
+    res.redirect('/loginErr')
   }
 };
 

@@ -16,19 +16,28 @@ exports.render_homepage = (req, res) => {
   if (this.testVar) {
     res.render('index', {cookie: cookie});
   } else {
-  res.render('index', {cookie: session});
+    res.render('index', {cookie: session});
   }
+};
+
+exports.render_loginErr = (req, res) => {
+  res.render('loginErr');
 };
 
 exports.render_JSON = (req, res) => {
   res.send(db);
 };
-
+/* Better 'bad' */
 exports.render_id = (req, res) => {
-  shortURL = req.params.shortURL;
-  res.redirect(db[shortURL]);
+  const short = req.params.shortURL;
+  Object.values(db).forEach((element) => {
+    if (element.shortURL === short) {
+      res.redirect(element.longURL);
+    } else {
+      res.send('bad');
+    }
+  });
 };
-
 exports.render_register = (req, res) => {
   res.render('register', {cookie: req.session.userID});
 };
@@ -44,7 +53,7 @@ exports.post_register = (req, res) => {
     res.send('400');
   } else {
     users[rng] = {id: rng, email: email, password: bcrypt.hashSync(pass, 10)};
-    console.log(users)
+    console.log(users);
     res.redirect('/urls');
   }
 };
@@ -66,4 +75,5 @@ exports.post_logout = (req, res) => {
   req.session = null;
   res.redirect('/urls');
 };
+
 

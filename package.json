@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon express_server.js",
-    "test": "mocha --exit"
+    "test": "mocha --timeout 15000 --exit"
   },
   "devDependencies": {
     "chai": "^4.2.0",

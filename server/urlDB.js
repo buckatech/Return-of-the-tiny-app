@@ -1,6 +1,12 @@
 // check if naming is required for objects
 
 module.exports = urlDatabase = {
-  'user1': {b2xV2n: 'https://youtube.com'},
-  'user2': {h1h1h1: 'https://google.ca'},
+  'cookie': {
+    shortURL: 'b2xVn2',
+    longURL: 'https://youtube.com',
+  },
+  'cookie': {
+    shortURL: 'h1h1h1',
+    longURL: 'https://google.ca',
+  },
 };

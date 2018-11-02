@@ -3,6 +3,13 @@ const router = express.Router();
 const urlsController = require('../controllers/urlsController');
 
 /* GET URLS page. */
+
+router.use(function(req, res, next) {
+  global.cookie = 'cookie'; // cookie = 'cookie'
+  global.session = req.session.userID;
+  next();
+});
+
 router.get('/', urlsController.render_urls);
 
 router.get('/new', urlsController.render_new);
