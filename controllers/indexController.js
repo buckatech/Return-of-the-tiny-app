@@ -28,22 +28,26 @@ exports.render_badOwnership = (req, res) => {
 exports.render_loginErr = (req, res) => {
   res.render('loginErr');
 };
-
+exports.render_badreq = (req, res) => {
+  res.render('badReq')
+}
 exports.render_JSON = (req, res) => {
   res.send(db);
 };
 /* Better 'bad' */
 exports.render_id = (req, res) => {
-  const short = req.params.shortURL;
   Object.values(db).forEach((element) => {
-    if (element.shortURL === short) {
-      res.redirect(element.longURL);
+    if (Object.keys(element)[0] === req.params.shortURL) {
+      res.redirect(Object.values(element)[0]);
     } else {
-      res.send('bad');
+      res.redirect('/badowner')
     }
   });
 };
 exports.render_register = (req, res) => {
+  if (session) {
+    res.redirect('/urls');
+  }
   res.render('register', {cookie: req.session.userID});
 };
 /* TODO better 400 handling */
@@ -51,12 +55,12 @@ exports.post_register = (req, res) => {
   const rng = genRang();
   const email = req.body.email;
   const pass = req.body.password;
-  req.session.userID = rng;
   if (isEmpty(email, pass) === 'red') {
-    res.send('400');
+    res.send(`400 is empty`);
   } else if (checkExist(users, email)) {
-    res.send('400');
+    res.send('400 exists');
   } else {
+    req.session.userID = rng;
     users[rng] = {id: rng, email: email, password: bcrypt.hashSync(pass, 10)};
     console.log(users);
     res.redirect('/urls');
@@ -64,6 +68,9 @@ exports.post_register = (req, res) => {
 };
 
 exports.render_login = (req, res) => {
+  if (session) {
+    res.redirect('/urls');
+  }
   res.render('login', {cookie: req.session.userID});
 };
 /* TODO better 400 handling */

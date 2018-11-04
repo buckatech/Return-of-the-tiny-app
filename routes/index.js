@@ -29,5 +29,7 @@ router.post('/logout', indexController.post_logout);
 
 router.get('/badowner', indexController.render_badOwnership)
 
+router.get('/badReq', indexController.render_badreq);
+
 
 module.exports = router;

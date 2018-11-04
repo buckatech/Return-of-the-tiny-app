@@ -21,6 +21,9 @@ module.exports = {
   checkExist(users, input) {
     let bool;
     Object.values(users).forEach((element) => {
+      console.log(element.email)
+      console.log(element)
+      console.log(input)
       if (element.email === input) {
         bool = true;
       }

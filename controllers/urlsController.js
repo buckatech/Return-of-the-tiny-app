@@ -39,22 +39,36 @@ exports.render_new = (req, res) => {
 };
 
 exports.post_new = (req, res) => {
+  if (session) {
   rString = genRang();
   longURL = req.body.longURL;
   db[session] = {...db[session], [rString]: longURL};
   res.redirect(`/urls/${rString}`);
+  } else {
+    res.redirect('/loginErr')
+  }
 };
 
 exports.post_delete = (req, res) => {
+  if (db[session] && req.params.id === Object.keys(db[session])[0]) {
   delete db[session][req.params.id];
   res.redirect('/urls');
+  } else if (session) {
+    res.redirect('/badowner')
+  } else {
+    res.redirect('/loginErr')
+  }
 };
 
 exports.post_update = (req, res) => {
+  if (db[session] && req.params.id === Object.keys(db[session])[0]) {
   shortUrl = req.params.id;
   longUrl = req.body.longURL;
-  console.log(shortUrl)
-  console.log(longUrl)
   db[session][shortUrl] = longUrl;
   res.redirect('/urls');
+  } else if (session) {
+    res.redirect('/badowner')
+  } else {
+    res.redirect('/loginErr')
+  }
 };
