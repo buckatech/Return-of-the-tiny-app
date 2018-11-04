@@ -21,7 +21,7 @@ exports.render_urls = (req, res) => {
 exports.render_id = (req, res) => {
   if (this.testVar) {
     res.render('show', {val: req.params.id, longVal: db['cookie']['cookie1'], cookie: cookie});
-  } else if (req.params.id === Object.keys(db[session])[0]) {
+  } else if (db[session].hasOwnProperty(req.params.id)) {
     res.render('show', {val: req.params.id, longVal: db[session][req.params.id], cookie: session});
   } else {
     res.redirect('/loginErr')
@@ -42,7 +42,6 @@ exports.post_new = (req, res) => {
   rString = genRang();
   longURL = req.body.longURL;
   db[session] = {...db[session], [rString]: longURL};
-  console.log(db)
   res.redirect(`/urls/${rString}`);
 };
 
