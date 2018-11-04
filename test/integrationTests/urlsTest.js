@@ -3,12 +3,12 @@ const should = chai.should();
 const expect = chai.expect;
 const chaiHttp = require('chai-http');
 
-const app = require('../express_server.js');
-const urlsController = require('../controllers/urlsController');
-const urls = require('../routes/index');
+const app = require('../../express_server.js');
+const urlsController = require('../../controllers/urlsController');
+const urls = require('../../routes/index');
 
-const db = require('../server/urlDB');
-const users = require('../server/userDB');
+const db = require('../../server/urlDB');
+const users = require('../../server/userDB');
 
 describe('/---Urls---/', () => {
   describe('---If the user is logged in', () => {
