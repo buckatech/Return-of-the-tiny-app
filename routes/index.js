@@ -19,7 +19,7 @@ router.get('/login', indexController.render_login);
 
 router.post('/login', indexController.post_login);
 
-router.get('/loginErr', indexController.render_loginErr)
+router.get('/loginErr', indexController.render_loginErr);
 
 router.get('/register', indexController.render_register);
 
@@ -27,7 +27,7 @@ router.post('/register', indexController.post_register);
 
 router.post('/logout', indexController.post_logout);
 
-router.get('/badowner', indexController.render_badOwnership)
+router.get('/badowner', indexController.render_badOwnership);
 
 router.get('/badReq', indexController.render_badreq);
 

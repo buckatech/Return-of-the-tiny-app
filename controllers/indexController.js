@@ -29,8 +29,8 @@ exports.render_loginErr = (req, res) => {
   res.render('loginErr');
 };
 exports.render_badreq = (req, res) => {
-  res.render('badReq')
-}
+  res.render('badReq');
+};
 exports.render_JSON = (req, res) => {
   res.send(db);
 };
@@ -40,7 +40,7 @@ exports.render_id = (req, res) => {
     if (Object.keys(element)[0] === req.params.shortURL) {
       res.redirect(Object.values(element)[0]);
     } else {
-      res.redirect('/badowner')
+      res.redirect('/badowner');
     }
   });
 };
