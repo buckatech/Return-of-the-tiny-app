@@ -3,6 +3,7 @@ const helpers = require('../helpers/functions');
 const genRang = helpers.rng;
 const objCheck = helpers.objIsEmpty;
 const outDB = helpers.outDB
+const innerUrls = helpers.innerUrls;
 
 
 
@@ -19,12 +20,18 @@ exports.render_urls = (req, res) => {
 };
 /* TODO add loop to elseif */
 exports.render_id = (req, res) => {
+  dbInner = innerUrls(db)
+  console.log(session)
   if (this.testVar) {
     res.render('show', {val: req.params.id, longVal: db['cookie']['cookie1'], cookie: cookie});
-  } else if (db[session].hasOwnProperty(req.params.id)) {
-    res.render('show', {val: req.params.id, longVal: db[session][req.params.id], cookie: session});
-  } else {
+  } else if (!session) {
     res.redirect('/loginErr')
+  } else if (!dbInner[req.params.id]) {
+    res.send('No Url for this shortURL')
+  } else if (db[session] && !db[session][req.params.id]) {
+    res.redirect('/badowner')
+  } else {
+    res.render('show', {val: req.params.id, longVal: db[session][req.params.id], cookie: session});
   }
 }
 

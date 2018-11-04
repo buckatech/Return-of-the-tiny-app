@@ -23,3 +23,14 @@ npm i
 
 ### **Testing**
 
+```
+npm test
+```
+Test coverage is still somewhat poor, on the todo list.
+
+### **Run**
+```
+npm start
+```
+- Will host to localhost:8080 by default
+

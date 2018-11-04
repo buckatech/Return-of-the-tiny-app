@@ -11,6 +11,7 @@ const isEmpty = helpers.isEmpty;
 const checkLogin = helpers.checkLogin;
 
 
+
 // Hello
 exports.render_homepage = (req, res) => {
   if (this.testVar) {

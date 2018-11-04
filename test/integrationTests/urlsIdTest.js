@@ -3,12 +3,12 @@ const should = chai.should();
 const expect = chai.expect;
 const chaiHttp = require('chai-http');
 
-const app = require('../express_server.js');
-const urlsController = require('../controllers/urlsController');
-const urls = require('../routes/index');
+const app = require('../../express_server.js');
+const urlsController = require('../../controllers/urlsController');
+const urls = require('../../routes/index');
 
-const db = require('../server/urlDB');
-const users = require('../server/userDB');
+const db = require('../../server/urlDB');
+const users = require('../../server/userDB');
 chai.use(chaiHttp);
 describe('/---Urls/Id ---/', () => {
   describe('---If the user is logged in', () => {
@@ -104,22 +104,6 @@ describe('/---Urls/Id ---/', () => {
           .get('/urls/cookie')
           .then((response) => {
             expect(response.text).to.have.string('<h3>You are not logged in please');
-            expect(response.text).to.be.a('string');
-            response.should.have.status(200);
-            response.should.be.html;
-          })
-          .catch((error) => {
-            throw error;
-          });
-    });
-  });
-  describe('If the user is logged in but does not own the URL', () => {
-    it('returns HTML with a relevant error message', () => {
-      delete urlsController.testVar;
-      return chai.request(app)
-          .get('/urls/cookie')
-          .then((response) => {
-            expect(response.text).to.have.string('You do not own this URL');
             expect(response.text).to.be.a('string');
             response.should.have.status(200);
             response.should.be.html;

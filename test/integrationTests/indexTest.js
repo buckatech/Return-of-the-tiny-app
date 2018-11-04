@@ -3,12 +3,12 @@ const should = chai.should();
 const expect = chai.expect;
 const chaiHttp = require('chai-http');
 
-const app = require('../express_server.js');
-const indexController = require('../controllers/indexController');
-const index = require('../routes/index');
+const app = require('../../express_server.js');
+const indexController = require('../../controllers/indexController');
+const index = require('../../routes/index');
 
-const db = require('../server/urlDB');
-const users = require('../server/userDB');
+const db = require('../../server/urlDB');
+const users = require('../../server/userDB');
 
 describe('/---Index Integration test with session active---/', () => {
   it('should return the home page with a cookie', () => {
