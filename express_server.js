@@ -1,7 +1,7 @@
 // External Modules
 const express = require('express');
 const path = require('path');
-// const morgan = require('morgan');
+const morgan = require('morgan');
 const compression = require('compression');
 const cookieSession = require('cookie-session');
 
@@ -21,7 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // logger, Parser, and File Serving
-// app.use(morgan('dev'));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieSession({

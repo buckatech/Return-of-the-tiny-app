@@ -10,8 +10,8 @@ const urls = require('../routes/index');
 const db = require('../server/urlDB');
 const users = require('../server/userDB');
 
-describe('Urls Integration Test', () => {
-  describe('If the user is logged in', () => {
+describe('/---Urls---/', () => {
+  describe('---If the user is logged in', () => {
     it('should return 200 and render text when urls is called', () => {
       urlsController.testVar = 'hi';
       return chai.request(app)
@@ -66,7 +66,7 @@ describe('Urls Integration Test', () => {
             throw error;
           });
     });
-    describe('Urls should return a list (or table) of URLs the user has created, each list item containing:', () => {
+    describe('|--Urls should return a list (or table) of URLs the user has created, each list item containing:', () => {
       it('A short URL', () => {
         urlsController.testVar = 'hi';
         return chai.request(app)
@@ -77,7 +77,7 @@ describe('Urls Integration Test', () => {
               const outShort = matchReg[0] || '';
               expect(outShort).to.not.have.lengthOf(0);
               expect(outShort).to.be.a('string');
-              expect(outShort).to.have.string('shortURL');
+              expect(outShort).to.have.string('cookie');
               response.should.have.status(200);
               response.should.be.html;
               delete urlsController.testVar;
@@ -96,12 +96,11 @@ describe('Urls Integration Test', () => {
               const outShort = matchReg[0] || '';
               expect(outShort).to.not.have.lengthOf(0);
               expect(outShort).to.be.a('string');
-              expect(outShort).to.have.string('shortURL');
+              expect(outShort).to.have.string('cookie');
               response.should.have.status(200);
               response.should.be.html;
-              const shortReg = outShort.match(/shortURL  (.+)<\//)[1];
-              expect(db['cookie'].shortURL === shortReg);
-              expect(db['cookie'].longURL === 'https://google.ca');
+              const shortReg = outShort.match(/cookie1  (.+)<\//)[1];
+              expect(shortReg).to.equal(db.cookie.cookie1)
               delete urlsController.testVar;
             })
             .catch((error) => {
@@ -113,11 +112,8 @@ describe('Urls Integration Test', () => {
         return chai.request(app)
             .get('/urls')
             .then((response) => {
-              const string = response.text;
-              const matchReg = string.match(/<li>([\s\S]*)?<\/li>/i)||[];
-              const outShort = matchReg[0] || '';
-              expect(outShort).to.have.string('<button>Update');
-              expect(outShort).to.not.have.lengthOf(0);
+              expect(response.text).to.have.string('<button>Update');
+              expect(response.text).to.not.have.lengthOf(0);
               response.should.have.status(200);
               response.should.be.html;
               delete urlsController.testVar;
@@ -131,11 +127,7 @@ describe('Urls Integration Test', () => {
         return chai.request(app)
             .get('/urls')
             .then((response) => {
-              const string = response.text;
-              const matchReg = string.match(/<li>([\s\S]*)?<\/li>/i)||[];
-              const outShort = matchReg[0] || '';
-              expect(outShort).to.have.string('action="/urls/longURL/delete');
-              expect(outShort).to.not.have.lengthOf(0);
+              expect(response.text).to.have.string('action="/urls/cookie1/delete');
               response.should.have.status(200);
               response.should.be.html;
               delete urlsController.testVar;
@@ -146,7 +138,7 @@ describe('Urls Integration Test', () => {
       });
     });
   });
-  describe('If the user is not logged in', () => {
+  describe('---If the user is not logged in', () => {
     it('should return 200 and render loginErr when urls is called without session', () => {
       return chai.request(app)
           .get('/urls')

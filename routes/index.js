@@ -27,5 +27,7 @@ router.post('/register', indexController.post_register);
 
 router.post('/logout', indexController.post_logout);
 
+router.get('/badowner', indexController.render_badOwnership)
+
 
 module.exports = router;

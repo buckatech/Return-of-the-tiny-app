@@ -4,7 +4,7 @@ const chaiHttp = require('chai-http');
 const app = require('../express_server.js');
 
 chai.use(chaiHttp);
-describe('Index Route Tests', () => {
+describe('/---Index Route Tests---/', () => {
   it('should return 200 and render text when / is called', () => {
     return chai.request(app)
         .get('/')

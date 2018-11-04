@@ -15,11 +15,16 @@ const checkLogin = helpers.checkLogin;
 exports.render_homepage = (req, res) => {
   if (this.testVar) {
     res.render('index', {cookie: cookie});
+  } else if (session) {
+    res.redirect('/urls');
   } else {
-    res.render('index', {cookie: session});
+    res.redirect('/login');
   }
 };
 
+exports.render_badOwnership = (req, res) => {
+  res.render('badOwnership');
+};
 exports.render_loginErr = (req, res) => {
   res.render('loginErr');
 };

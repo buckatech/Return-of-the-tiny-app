@@ -10,7 +10,7 @@ const index = require('../routes/index');
 const db = require('../server/urlDB');
 const users = require('../server/userDB');
 
-describe('Index Integration test with session active', () => {
+describe('/---Index Integration test with session active---/', () => {
   it('should return the home page with a cookie', () => {
     indexController.testVar = 'hi';
     return chai.request(app)
@@ -32,7 +32,7 @@ describe('Index Integration test with session active', () => {
 });
 
 
-describe('Index Integration test with no session', () => {
+describe('---Index Integration test with no session', () => {
   it('should return the home page with no cookie', () => {
     return chai.request(app)
         .get('/')

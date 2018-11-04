@@ -11,21 +11,28 @@ const outDB = helpers.outDB
 exports.render_urls = (req, res) => {
   if (this.testVar) {
     res.render('urls', {db: db[cookie], cookie: cookie})
-  } else if (req.session.userID) {
-  res.render('urls', {db: db[req.session.userID], cookie: req.session.userID});
+  } else if (session) {
+  res.render('urls', {db: db[session], cookie: session});
   } else {
     res.redirect('/loginErr')
   }
 };
-
+/* TODO add loop to elseif */
 exports.render_id = (req, res) => {
-  val = req.params.id;
-  res.render('show', {short: val, long: db[val], cookie: req.session.userID});
-};
+  if (this.testVar) {
+    res.render('show', {val: req.params.id, longVal: db['cookie']['cookie1'], cookie: cookie});
+  } else if (req.params.id === Object.keys(db[session])[0]) {
+    res.render('show', {val: req.params.id, longVal: db[session][req.params.id], cookie: session});
+  } else {
+    res.redirect('/loginErr')
+  }
+}
 
 exports.render_new = (req, res) => {
-  if (objCheck(req.session.userID) === 'goodCookie') {
-    res.render('new', {cookie: req.session.userID});
+  if (this.testVar) {
+    res.render('new', {cookie: cookie});
+  } else if (objCheck(session) === 'goodCookie') {
+    res.render('new', {cookie: session});
   } else {
     res.redirect('/login');
   }
@@ -34,13 +41,13 @@ exports.render_new = (req, res) => {
 exports.post_new = (req, res) => {
   rString = genRang();
   longURL = req.body.longURL;
-  db[req.session.userID] = {...db[req.session.userID], [rString]: longURL};
+  db[session] = {...db[session], [rString]: longURL};
   console.log(db)
   res.redirect(`/urls/${rString}`);
 };
 
 exports.post_delete = (req, res) => {
-  delete db[req.session.userID][req.params.id];
+  delete db[session][req.params.id];
   res.redirect('/urls');
 };
 
@@ -49,6 +56,6 @@ exports.post_update = (req, res) => {
   longUrl = req.body.longURL;
   console.log(shortUrl)
   console.log(longUrl)
-  db[req.session.userID][shortUrl] = longUrl;
+  db[session][shortUrl] = longUrl;
   res.redirect('/urls');
 };
