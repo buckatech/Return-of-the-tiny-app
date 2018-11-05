@@ -7,8 +7,13 @@ const innerUrls = helpers.innerUrls;
 
 
 
-// Hello
-//Add no urls prompt
+/**
+ * 
+ * @param {req} req 
+ * @param {res} res 
+ * If session exists render urls
+ * If session does not exist redirect to loginErr
+ */
 exports.render_urls = (req, res) => {
   if (this.testVar) {
     res.render('urls', {db: db[cookie], cookie: cookie})
@@ -18,7 +23,15 @@ exports.render_urls = (req, res) => {
     res.redirect('/loginErr')
   }
 };
-/* TODO add loop to elseif */
+/**
+ * 
+ * @param {req} req 
+ * @param {res} res 
+ * If session does not exist redirect to loginErr
+ * If Url does not exist send Err
+ * If Url does not belong to session redirect to Err page
+ * If All params are good render the Update page
+ */
 exports.render_id = (req, res) => {
   dbInner = innerUrls(db)
   console.log(session)
@@ -34,7 +47,13 @@ exports.render_id = (req, res) => {
     res.render('show', {val: req.params.id, longVal: db[session][req.params.id], cookie: session});
   }
 }
-
+/**
+ * 
+ * @param {req} req 
+ * @param {res} res
+ * If session exists render new URL page
+ * If session does not exist redirect to login 
+ */
 exports.render_new = (req, res) => {
   if (this.testVar) {
     res.render('new', {cookie: cookie});
@@ -44,7 +63,13 @@ exports.render_new = (req, res) => {
     res.redirect('/login');
   }
 };
-
+/**
+ * 
+ * @param {req} req 
+ * @param {res} res
+ * If session exists add new URL to urlDB and redirect to update page for that URL
+ * If session does not exist redir to loginErr 
+ */
 exports.post_new = (req, res) => {
   if (session) {
   rString = genRang();
@@ -55,7 +80,14 @@ exports.post_new = (req, res) => {
     res.redirect('/loginErr')
   }
 };
-
+/**
+ * 
+ * @param {req} req 
+ * @param {res} res
+ * If Url exists and belongs to session delete
+ * If Url does not belong to the owner render Err page
+ * If user is not logged in render Err page 
+ */
 exports.post_delete = (req, res) => {
   if (db[session] && req.params.id === Object.keys(db[session])[0]) {
   delete db[session][req.params.id];
@@ -67,6 +99,14 @@ exports.post_delete = (req, res) => {
   }
 };
 
+/**
+ * 
+ * @param {req} req 
+ * @param {res} res
+ * If Url exists and is owned by session update it
+ * If Url does not belong to session render Err page
+ * If no session redirect to Err 
+ */
 exports.post_update = (req, res) => {
   if (db[session] && req.params.id === Object.keys(db[session])[0]) {
   shortUrl = req.params.id;

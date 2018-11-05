@@ -11,8 +11,12 @@ const isEmpty = helpers.isEmpty;
 const checkLogin = helpers.checkLogin;
 
 
-
-// Hello
+/**
+ * @param {req} HTTP Object
+ * @param {res} HTTP Object
+ * Redirects to urls if user is logged in.
+ * Redirects to login if user is not logged in.
+ */
 exports.render_homepage = (req, res) => {
   if (this.testVar) {
     res.render('index', {cookie: cookie});
@@ -23,19 +27,13 @@ exports.render_homepage = (req, res) => {
   }
 };
 
-exports.render_badOwnership = (req, res) => {
-  res.render('badOwnership');
-};
-exports.render_loginErr = (req, res) => {
-  res.render('loginErr');
-};
-exports.render_badreq = (req, res) => {
-  res.render('badReq');
-};
-exports.render_JSON = (req, res) => {
-  res.send(db);
-};
-/* Better 'bad' */
+/**
+ *
+ * @param {req} HTTP Object
+ * @param {res} HTTP Object
+ * If req paramater matches url will redirect to site
+ * If req paramater does not match weil redir to error page
+ */
 exports.render_id = (req, res) => {
   Object.values(db).forEach((element) => {
     if (Object.keys(element)[0] === req.params.shortURL) {
@@ -45,13 +43,27 @@ exports.render_id = (req, res) => {
     }
   });
 };
+/**
+ *
+ * @param {req} HTTP Object
+ * @param {res} HTTP Object
+ * If session exists redirect to urls
+ * If not render register page
+ */
 exports.render_register = (req, res) => {
   if (session) {
     res.redirect('/urls');
   }
   res.render('register', {cookie: req.session.userID});
 };
-/* TODO better 400 handling */
+/**
+ *
+ * @param {req} HTTP Object
+ * @param {res} HTTP Object
+ * If pass or email is empty render an error page
+ * If email exists render an error page
+ * If email and pass are good add the user to the database and redir to urls
+ */
 exports.post_register = (req, res) => {
   const rng = genRang();
   const email = req.body.email;
@@ -68,13 +80,27 @@ exports.post_register = (req, res) => {
   }
 };
 
+/**
+ *
+ * @param {req} HTTP Object
+ * @param {res} HTTP Object
+ * If session exists redir to urls
+ * If session does not exist render the login page
+ */
 exports.render_login = (req, res) => {
   if (session) {
     res.redirect('/urls');
   }
   res.render('login', {cookie: req.session.userID});
 };
-/* TODO better 400 handling */
+
+/**
+ *
+ * @param {req} HTTP Object
+ * @param {res} HTTP Object
+ * If does not exist render 400 error
+ * If user exists redirect to urls and issue a session
+ */
 exports.post_login = (req, res) => {
   if (checkLogin(users, req.body) === undefined) {
     res.send('400');
@@ -84,9 +110,30 @@ exports.post_login = (req, res) => {
   }
 };
 
+/**
+ *
+ * @param {req} req
+ * @param {res} res
+ * Destroy session and redirect to urls
+ */
 exports.post_logout = (req, res) => {
   req.session = null;
   res.redirect('/urls');
 };
 
-
+// Error handler for cookie url mismatch
+exports.render_badOwnership = (req, res) => {
+  res.render('badOwnership');
+};
+// Error handler for login errors
+exports.render_loginErr = (req, res) => {
+  res.render('loginErr');
+};
+// Error handler for bad requests
+exports.render_badreq = (req, res) => {
+  res.render('badReq');
+};
+// Debber render JSON
+exports.render_JSON = (req, res) => {
+  res.send(db);
+};
