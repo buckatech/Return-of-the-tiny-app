@@ -9,6 +9,7 @@ const genRang = helpers.rng;
 const checkExist = helpers.checkExist;
 const isEmpty = helpers.isEmpty;
 const checkLogin = helpers.checkLogin;
+const innerDB = helpers.innerUrls;
 
 
 /**
@@ -35,13 +36,13 @@ exports.render_homepage = (req, res) => {
  * If req paramater does not match weil redir to error page
  */
 exports.render_id = (req, res) => {
-  Object.values(db).forEach((element) => {
-    if (Object.keys(element)[0] === req.params.shortURL) {
-      res.redirect(Object.values(element)[0]);
-    } else {
-      res.redirect('/badowner');
+  let idDb = innerDB(db);
+  Object.keys(idDb).forEach((element) => {
+    if (element === req.params.shortURL) {
+      res.redirect(idDb[element]);
     }
   });
+  res.redirect('/badReq');
 };
 /**
  *
