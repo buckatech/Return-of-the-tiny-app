@@ -36,13 +36,14 @@ exports.render_homepage = (req, res) => {
  * If req paramater does not match weil redir to error page
  */
 exports.render_id = (req, res) => {
-  let idDb = innerDB(db);
-  Object.keys(idDb).forEach((element) => {
-    if (element === req.params.shortURL) {
-      res.redirect(idDb[element]);
-    }
-  });
-  res.redirect('/badReq');
+  const idDb = innerDB(db);
+  try {
+    console.log(idDb[req.params.shortURL]);
+    res.redirect(idDb[req.params.shortURL]);
+  } catch (err) {
+    console.log(err);
+    res.redirect('/badReq');
+  }
 };
 /**
  *
